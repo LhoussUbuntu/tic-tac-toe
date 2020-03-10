@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 class Game
     def initialize(player1, player2)
         @player1 = player1
@@ -5,7 +6,9 @@ class Game
         @game_over = false
         @board = ["", "1", "2", "3", "4", "5", "6", "7", "8", "9"] # exlude 0 for simplicity
         @win = ["123", "456", "789", "147", "258", "369", "159", "357"]
-        @spot_availabale = ["1", "2", "3", "4", "5", "6", "7", "8", "9"]
+        @player1_spots = ""
+        @player2_spots = ""
+        @turn_count = 0
     end
 
     def show_board
@@ -22,10 +25,15 @@ class Game
     def player1_turn
         puts "#{@player1} chose your Spot with : X "
         spot1 = gets.chomp
-        if @spot_availabale.join("").include? spot1
+        if @board.join("").include? spot1
+            @turn_count += 1
             @board[spot1.to_i] = "X"
-            show_board
-            player2_turn
+            @player1_spots += spot1
+            check_win(@player1_spots, @player1)
+            if !@game_over
+                show_board
+                player2_turn
+            end
         else
             puts "Spot taken or doesn't exist, Try again"
             player1_turn
@@ -35,10 +43,15 @@ class Game
     def player2_turn
         puts "#{@player2} chose your Spot with : O "
         spot2 = gets.chomp
-        if @spot_availabale.join("").include? spot2
+        if @board.join("").include? spot2
+            @turn_count += 1
             @board[spot2.to_i] = "O"
-            show_board
-            player1_turn
+            @player2_spots += spot2
+            check_win(@player2_spots, @player3)
+            if !@game_over
+                show_board
+                player1_turn
+            end
         else
             puts "Spot taken or doesn't exist, Try again"
             player2_turn
@@ -51,8 +64,25 @@ class Game
         show_board
         player1_turn
     end
+
+    def check_win(player_spots, name)
+        check = 0
+        @win.each do |win_win|
+            player_spots.scan(/./) do |n|
+                if win_win.include? n
+                    check += 1
+                end
+            end
+            if check == 3
+                puts "#{name} YOU WIN!!!!!!"
+                show_board
+                @game_over = true
+            end
+            check = 0
+        end
+    end
 end
 
-game = Game.new("lhoussaine", "Adel")
+game = Game.new("lhoussaine", "Badr")
 
 game.start_game
