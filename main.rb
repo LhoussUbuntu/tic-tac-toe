@@ -30,9 +30,12 @@ class Game
             @board[spot1.to_i] = "X"
             @player1_spots += spot1
             check_win(@player1_spots, @player1)
-            if !@game_over
+            if !@game_over && @turn_count != 9
                 show_board
                 player2_turn
+            else
+                show_board
+                puts "DRAWW!!!"
             end
         else
             puts "Spot taken or doesn't exist, Try again"
@@ -47,7 +50,7 @@ class Game
             @turn_count += 1
             @board[spot2.to_i] = "O"
             @player2_spots += spot2
-            check_win(@player2_spots, @player3)
+            check_win(@player2_spots, @player2)
             if !@game_over
                 show_board
                 player1_turn

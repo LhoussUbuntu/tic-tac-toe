@@ -26,19 +26,19 @@
 # test(5)
 
 
-win = ["133", "356", "389", "347", "358", "369", "159", "357"]
-player1 = "12598"
-check = 0
-win.each do |win_win|
-    player1.each_char do |n|
-        if win_win.include? n
-            check += 1
-        end
-    end
-    if check == 3
-        puts "YOU WIN!!!!!!"
-        break
-    end
-end
+# win = ["133", "356", "389", "347", "358", "369", "159", "357"]
+# player1 = "12598"
+# check = 0
+# win.each do |win_win|
+#     player1.each_char do |n|
+#         if win_win.include? n
+#             check += 1
+#         end
+#     end
+#     if check == 3
+#         puts "YOU WIN!!!!!!"
+#         break
+#     end
+# end
 
 
